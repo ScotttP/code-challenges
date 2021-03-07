@@ -132,3 +132,145 @@ function chunkArrayInGroups(arr, size) {
 chunkArrayInGroups(["a", "b", "c", "d"], 2);
 
 //************************/
+
+// Your task is to write function findSum.
+
+// Upto and including n, this function will return the sum of all multiples of 3 and 5.
+
+// For example:
+
+// findSum(5) should return 8 (3 + 5)
+
+// findSum(10) should return 33 (3 + 5 + 6 + 9 + 10)
+
+function findSum(n) {
+	let newArry = [];
+	for (let i = 0; i <= n; i++) {
+		if (i % 3 === 0 || i % 5 === 0) {
+			newArry.push(i);
+		}
+	}
+	return newArry.reduce((acc, curr) => acc + curr);
+}
+
+//************************/
+
+// Your task is to make function, which returns the sum of a sequence of integers.
+
+// The sequence is defined by 3 non-negative values: begin, end, step.
+
+// If begin value is greater than the end, function should returns 0
+
+// Examples
+
+// sequenceSum(2,2,2) === 2
+// sequenceSum(2,6,2) === 12 // 2 + 4 + 6
+// sequenceSum(1,5,1) === 15 // 1 + 2 + 3 + 4 + 5
+// sequenceSum(1,5,3) === 5 // 1 + 4
+
+const sequenceSum = (begin, end, increment) => {
+	let arry = [];
+	if (begin > end) return 0;
+	for (let i = begin; i <= end; i += increment) {
+		arry.push(i);
+	}
+	return arry.reduce((acc, curr) => acc + curr);
+};
+// OR
+
+function sequenceSum(begin, end, step) {
+	let sum = 0;
+	for (let i = begin; i <= end; i += step) {
+		sum += i;
+	}
+	return sum;
+}
+
+//************************/
+
+// Scenario
+// Several people are standing in a row divided into two teams.
+// The first person goes into team 1, the second goes into team 2, the third goes into team 1, and so on.
+
+// Task
+// Given an array of positive integers (the weights of the people), return a new array/tuple of two integers, where the first one is the total weight of team 1, and the second one is the total weight of team 2.
+
+// Notes
+// Array size is at least 1.
+// All numbers will be positive.
+// Input >> Output Examples
+// rowWeights([13, 27, 49])  ==>  return (62, 27)
+// Explanation:
+// The first element 62 is the total weight of team 1, and the second element 27 is the total weight of team 2.
+
+function rowWeights(array) {
+	let evenArr = [];
+	let oddArr = [];
+	let team1Result = 0;
+	let team2Result = 0;
+
+	for (let index in array) {
+		if (index % 2 === 0) {
+			evenArr.push(array[index]);
+			team1Result = evenArr.reduce((acc, curr) => acc + curr);
+		} else {
+			oddArr.push(array[index]);
+			team2Result = oddArr.reduce((acc, curr) => acc + curr);
+		}
+	}
+	return [team1Result, team2Result];
+}
+
+//BETTER SOLUTION
+
+function rowWeights(array) {
+	let t1 = array.filter((x, i) => i % 2 == 0).reduce((a, item) => a + item, 0);
+	let t2 = array.filter((x, i) => i % 2 != 0).reduce((a, item) => a + item, 0);
+
+	return [t1, t2];
+}
+
+//************************/
+
+// In this Kata, you will be given a string that may have mixed uppercase and lowercase letters and your task is to convert that string to either lowercase only or uppercase only based on:
+
+// make as few changes as possible.
+// if the string contains equal number of uppercase and lowercase letters, convert the string to lowercase.
+// For example:
+
+// solve("coDe") = "code". Lowercase characters > uppercase. Change only the "D" to lowercase.
+// solve("CODe") = "CODE". Uppercase characters > lowecase. Change only the "e" to uppercase.
+// solve("coDE") = "code". Upper == lowercase. Change all to lowercase.
+
+function solve(s) {
+	let lowerCount = 0;
+	let upperCount = 0;
+
+	for (let index in s) {
+		if (s.charCodeAt(index) >= 97 && s.charCodeAt(index) <= 122) {
+			lowerCount++;
+		} else if (s.charCodeAt(index) >= 65 && s.charCodeAt(index) <= 90) {
+			upperCount++;
+		}
+	}
+	if (lowerCount >= upperCount || upperCount === lowerCount) {
+		return s.toLowerCase();
+	} else return s.toUpperCase();
+}
+
+//Better Solution
+
+function solve(s) {
+	let lowerC = 0;
+	let upperC = 0;
+	for (let i = 0; i < s.length; i++) {
+		if (s[i] == s[i].toUpperCase()) {
+			upperC++;
+		} else {
+			lowerC++;
+		}
+	}
+	return lowerC >= upperC ? s.toLowerCase() : s.toUpperCase();
+}
+
+//************************/
