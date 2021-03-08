@@ -274,3 +274,71 @@ function solve(s) {
 }
 
 //************************/
+
+// Given an integer as input, can you round it to the next (meaning, "higher") multiple of 5?
+
+// Examples:
+
+// input:    output:
+// 0    ->   0
+// 2    ->   5
+// 3    ->   5
+// 12   ->   15
+// 21   ->   25
+// 30   ->   30
+// -2   ->   0
+// -5   ->   -5
+// etc.
+// Input may be any positive or negative integer (including 0).
+
+// You can assume that all inputs are valid integers.
+
+function roundToNext5(n) {
+	let remainder = n % 5;
+	if (n % 5 === 0) {
+		return n;
+	} else {
+		if (Math.sign(n) === 1) {
+			return n - remainder + 5;
+		} else if (Math.sign(n) === -1) {
+			return n - remainder;
+		}
+	}
+}
+
+//BETTER SOLUTION
+
+function roundToNext5(n) {
+	return Math.ceil(n / 5) * 5;
+}
+
+//************************/
+
+// A stream of data is received and needs to be reversed.
+
+// Each segment is 8 bits long, meaning the order of these segments needs to be reversed, for example:
+
+// 11111111  00000000  00001111  10101010
+//  (byte1)   (byte2)   (byte3)   (byte4)
+// should become:
+
+// 10101010  00001111  00000000  11111111
+//  (byte4)   (byte3)   (byte2)   (byte1)
+// The total number of bits will always be a multiple of 8.
+
+// The data is given in an array as such:
+
+// [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,0,1,0]
+// Note: In the C and NASM languages you are given the third parameter which is the number of segment blocks.
+
+function dataReverse(data) {
+	let reversed = [];
+	for (let i = data.length; i >= 0; i -= 8) {
+		reversed = reversed.concat(data.slice(i, i + 8));
+	}
+	return reversed;
+}
+
+//************************/
+
+//************************/
