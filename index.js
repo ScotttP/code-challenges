@@ -340,5 +340,83 @@ function dataReverse(data) {
 }
 
 //************************/
+// The Western Suburbs Croquet Club has two categories of membership, Senior and Open. They would like your help with an application form that will tell prospective members which category they will be placed.
+
+// To be a senior, a member must be at least 55 years old and have a handicap greater than 7. In this croquet club, handicaps range from -2 to +26; the better the player the lower the handicap.
+
+// Input
+// Input will consist of a list of lists containing two items each. Each list contains information for a single potential member. Information consists of an integer for the person's age and an integer for the person's handicap.
+
+// Note for F#: The input will be of (int list list) which is a List<List>
+
+// Example Input
+// [[18, 20],[45, 2],[61, 12],[37, 6],[21, 21],[78, 9]]
+// Output
+// Output will consist of a list of string values (in Haskell: Open or Senior) stating whether the respective member is to be placed in the senior or open category.
+
+// Example Output
+// ["Open", "Open", "Senior", "Open", "Open", "Senior"]
+
+function openOrSenior(data) {
+	return data.map((element) => {
+		return element.reduce((age, handicap) => {
+			if (age >= 55 && handicap > 7) {
+				return "Senior";
+			} else {
+				return "Open";
+			}
+		});
+	});
+}
+
+//************************/
+
+// Some numbers have funny properties. For example:
+
+// 89 --> 8¹ + 9² = 89 * 1
+
+// 695 --> 6² + 9³ + 5⁴= 1390 = 695 * 2
+
+// 46288 --> 4³ + 6⁴+ 2⁵ + 8⁶ + 8⁷ = 2360688 = 46288 * 51
+
+// Given a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p
+
+// we want to find a positive integer k, if it exists, such as the sum of the digits of n taken to the successive powers of p is equal to k * n.
+// In other words:
+
+// Is there an integer k such as : (a ^ p + b ^ (p+1) + c ^(p+2) + d ^ (p+3) + ...) = n * k
+
+// If it is the case we will return k, if not return -1.
+
+// Note: n and p will always be given as strictly positive integers.
+
+// digPow(89, 1) should return 1 since 8¹ + 9² = 89 = 89 * 1
+// digPow(92, 1) should return -1 since there is no k such as 9¹ + 2² equals 92 * k
+// digPow(695, 2) should return 2 since 6² + 9³ + 5⁴= 1390 = 695 * 2
+// digPow(46288, 3) should return 51 since 4³ + 6⁴+ 2⁵ + 8⁶ + 8⁷ = 2360688 = 46288 * 51
+
+function digPow(n, p) {
+	let numArry = n
+		.toString()
+		.split("")
+		.map((element) => Number(element));
+	let incrementP = p;
+
+	let newArry = numArry.map((value) => {
+		let val = Math.pow(value, incrementP);
+		incrementP += 1;
+		return val;
+	});
+
+	let result = newArry.reduce((acc, curr) => {
+		return acc + curr;
+	});
+
+	if (Number.isInteger(result / n)) {
+		return result / n;
+	} else {
+		return -1;
+	}
+}
 
 //************************/
