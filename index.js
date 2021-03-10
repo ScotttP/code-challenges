@@ -420,3 +420,42 @@ function digPow(n, p) {
 }
 
 //************************/
+
+// A simple kata, my first.
+// simply tranform an array into a string, like so:
+
+//   transform([4, -56, true, "box"]) => "4-56truebox"
+
+function transform(array) {
+	return array
+		.map((element) => {
+			return String(element);
+		})
+		.join("");
+}
+
+//************************/
+
+// Given an array of integers of any length, return an array that has 1 added to the value represented by the array.
+
+// the array can't be empty
+// only non-negative, single digit integers are allowed
+// Return nil (or your language's equivalent) for invalid inputs.
+
+// Examples
+// For example the array [2, 3, 9] equals 239, adding one would return the array [2, 4, 0].
+
+// [4, 3, 2, 5] would return [4, 3, 2, 6]
+
+function upArray(arr) {
+	for (let value of arr) {
+		if (value < 0 || value === NaN || value === undefined || value > 9)
+			return null;
+	}
+	let num = Number(arr.join(""));
+	num++;
+	let final = String(num).split("");
+	return final.map((element) => Number(element));
+}
+
+//************************/
