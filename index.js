@@ -459,3 +459,42 @@ function upArray(arr) {
 }
 
 //************************/
+
+//NEED TO FINISH
+
+// Given a variable n,
+
+// If n is an integer, Return a string with dash'-'marks before and after each odd integer, but do not begin or end the string with a dash mark. If n is negative, then the negative sign should be removed.
+
+// If n is not an integer, return an empty value.
+
+// Ex:
+
+// dashatize(274) -> '2-7-4'
+// dashatize(6815) -> '68-1-5'
+
+function dashatize(num) {
+	if (isNaN(num)) return "NaN";
+	let numArray = Array.from(String(num), Number);
+	let filteredArray = numArray.filter(numsOnly);
+
+	for (let i = 0; i < filteredArray.length; i++) {
+		if (filteredArray[i] % 2 > 0) {
+			if (i === 0) {
+				filteredArray.splice(i + 1, 0, "-");
+			} else if (i > 0 && i < filteredArray.length - 1) {
+				filteredArray.splice(i + 1, 0, "-");
+			}
+		} else if (filteredArray[i] % 2 === 0 && filteredArray[i + 1] % 2 > 0)
+			filteredArray.splice(i + 1, 0, "-");
+	}
+	return filteredArray;
+}
+
+let numsOnly = (val) => {
+	if (typeof val === "number" || val === 0) {
+		return val;
+	}
+};
+
+//************************/
