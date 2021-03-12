@@ -476,25 +476,77 @@ function upArray(arr) {
 function dashatize(num) {
 	if (isNaN(num)) return "NaN";
 	let numArray = Array.from(String(num), Number);
-	let filteredArray = numArray.filter(numsOnly);
+	let filteredArray = [];
+
+	for (let i = 0; i < numArray.length; i++) {
+		if (typeof numArray[i] === "number") {
+			if (!isNaN(numArray[i])) {
+				filteredArray.push(numArray[i]);
+			}
+		}
+	}
 
 	for (let i = 0; i < filteredArray.length; i++) {
 		if (filteredArray[i] % 2 > 0) {
-			if (i === 0) {
+			//if index value is odd
+			if (i === 0 && filteredArray.length > 1) {
+				// if value is at the beginning of the array, add dash to the right
 				filteredArray.splice(i + 1, 0, "-");
 			} else if (i > 0 && i < filteredArray.length - 1) {
+				// if value is not at the beginning and is not the last index, add dash to the right
 				filteredArray.splice(i + 1, 0, "-");
 			}
 		} else if (filteredArray[i] % 2 === 0 && filteredArray[i + 1] % 2 > 0)
+			//if index value is even and the next value is odd add a dash to the right
 			filteredArray.splice(i + 1, 0, "-");
 	}
-	return filteredArray;
+	return filteredArray.join("");
 }
 
-let numsOnly = (val) => {
-	if (typeof val === "number" || val === 0) {
-		return val;
+// REGEX SOLUTION
+
+function dashatize(num) {
+	return String(num)
+		.replace(/([13579])/g, "-$1-")
+		.replace(/--+/g, "-")
+		.replace(/(^-|-$)/g, "");
+}
+
+//************************/
+
+// Task
+// In this simple Kata your task is to create a function that turns a string into a Mexican Wave. You will be passed a string and you must return that string in an array where an uppercase letter is a person standing up.
+// Rules
+//  1.  The input string will always be lower case but maybe empty.
+
+//  2.  If the character in the string is whitespace then pass over it as if it was an empty seat
+// Example
+// wave("hello") => ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+
+function wave(str) {
+	//   str = str.replace(/\s/g,'')
+	let strArray = [];
+	let inner = [];
+	let newArr = [];
+	let index = 0;
+
+	for (let i = 0; i < str.length; i++) {
+		strArray.push(str);
 	}
-};
+	console.log(strArray);
+
+	for (let i = 0; i < strArray.length; i++) {
+		inner = strArray[i].split("");
+
+		if (inner[index] !== " ") {
+			inner[index] = inner[index].toUpperCase();
+		}
+
+		newArr.push(inner.join(""));
+
+		index += 1;
+	}
+	return newArr;
+}
 
 //************************/
